@@ -1,0 +1,78 @@
+.userProfile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 6px;
+
+  .profile {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #d0d7de;
+    border-radius: 15px;
+    gap: 15px;
+
+    img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .profileInfo {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+
+  .buttonBack {
+    width: 200px;
+    color: #eaeaea;
+    background-color: #412c2c;
+  }
+}
+
+.repoList {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  gap: 4px;
+
+  .repository {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px;
+    color: #666;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #d0d7de;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #eaeaea;
+    }
+
+    .name {
+      height: 24px;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .emptyList {
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #b36b6b;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
