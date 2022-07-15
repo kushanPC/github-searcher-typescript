@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect } from 'react';
 import SearchInput from '../searchInput/SearchInput';
 import UsersList from './UsersList';
 import s from './searchUsers.module.scss';
@@ -11,16 +11,22 @@ const SearchUsers: FC = () => {
   const { searchUsers } = useAction();
   const { loading } = useTypeSelector((state) => state.user);
 
-  const handleSearch = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+  const handleSearch = debounce(useCallback((e: ChangeEvent<HTMLInputElement>): void => {
     const { target: { value } } = e;
     if (value) {
       searchUsers(value);
     }
-  }, []);
+  }, []), 700);
 
+  useEffect(() => {
+    return () => {
+      handleSearch.cancel();
+    }
+  }, []);
+  
   return (
     <div className={s.searchUsers}>
-      <SearchInput handleChange={debounce(handleSearch, 700)} />
+      <SearchInput handleChange={handleSearch} />
       {loading ? <div>Loading users...</div> : <UsersList users={users} />}
     </div>
   );
