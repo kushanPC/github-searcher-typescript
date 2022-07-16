@@ -1,8 +1,9 @@
-import { RepoState, RepoActionTypes, RepoAction } from './../../types/repos';
+import { RepoAction, RepoActionTypes, RepoState } from './../../types/repo';
 
 const initialState: RepoState = {
   repos: null,
-  loading: false
+  loading: false,
+  error: ''
 };
 
 export const repoReduser = (
@@ -14,6 +15,7 @@ export const repoReduser = (
       return {
         ...state,
         repos: action.payload,
+        error: '',
         loading: false,
       };
     }

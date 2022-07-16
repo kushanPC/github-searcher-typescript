@@ -1,11 +1,8 @@
-import { IRepo } from './repos';
-
 export enum UserActionTypes {
-  SEARCH_USERS = 'SEARCH_USERS',
   GET_USER = 'GET_USER',
-  CLEAR_USERS = 'CLEAR_USERS',
   CLEAR_USER = 'CLEAR_USER',
   SET_LOADING_USER = 'SET_LOADING_USER',
+  ERROR_LOADING_USER = 'ERROR_LOADING_USER',
 }
 
 export interface IUserItem {
@@ -22,39 +19,26 @@ export interface IUserItem {
 }
 
 export interface UserState {
-  users: IUserItem[];
   user: IUserItem;
-  repos: IRepo[] | null;
   loading: boolean;
-}
-
-
-interface SearchUserAction {
-  type: UserActionTypes.SEARCH_USERS;
-  payload: IUserItem[];
+  error: string
 }
 
 interface GetUserAction {
-    type: UserActionTypes.GET_USER;
-    payload: IUserItem;
+  type: UserActionTypes.GET_USER;
+  payload: IUserItem;
 }
 interface ClearUserAction {
-    type: UserActionTypes.CLEAR_USER;
-}
-
-interface ClearUsersAction {
-  type: UserActionTypes.CLEAR_USERS;
+  type: UserActionTypes.CLEAR_USER;
 }
 
 interface SetLoadingUserAction {
   type: UserActionTypes.SET_LOADING_USER;
 }
 
-export type UserAction =
-  | SearchUserAction
-  | GetUserAction
-  | ClearUsersAction
-  | ClearUserAction
-  | SetLoadingUserAction;
+interface SetErrorLoadingUserAction {
+  type: UserActionTypes.ERROR_LOADING_USER;
+  payload: string
+}
 
-
+export type UserAction = GetUserAction | ClearUserAction | SetLoadingUserAction | SetErrorLoadingUserAction;

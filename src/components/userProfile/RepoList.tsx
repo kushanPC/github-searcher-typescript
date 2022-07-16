@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
-import { IRepo } from '../../types/repos';
+import { IRepo } from '../../types/repo';
 import s from './userProfile.module.scss';
 
 type PropsRepoList = {
@@ -32,17 +32,21 @@ const Repository: FC<PropsRepository> = ({
 };
 
 const RepoList: FC<PropsRepoList> = ({ searchValue }) => {
-  const { repos, loading } = useTypeSelector((state) => state.repo);
+  const { repos, loading, error } = useTypeSelector((state) => state.repo);
 
   if (loading) {
     return <span>идет загрузка...</span>;
+  }
+
+  if (error) {
+    return <span>{`Произошла ошибка при загрузке репозиториев: ${error}`}</span>;
   }
 
   return (
     <div className={s.repoList}>
       {repos && repos?.length ? (
         repos
-          .filter((repo: IRepo) => repo.name.search(searchValue) !== -1)
+          .filter((repo: IRepo) => repo.name.toLowerCase().search(searchValue.toLowerCase()) !== -1)
           .map((repo: IRepo) => {
             return <Repository {...repo} key={repo.name} />;
           })

@@ -1,5 +1,5 @@
 
-import { IRepo, RepoActionTypes, RepoAction } from '../../types/repos';
+import { IRepo, RepoActionTypes, RepoAction } from '../../types/repo';
 import { Dispatch } from 'redux';
 import axiosInstance from '../../api';
 
@@ -13,6 +13,7 @@ export const getUserRepos = (username: string) => {
         payload: res.data,
       });
     } catch (e: any) {
+      dispatch({ type: RepoActionTypes.ERROR_LOADING_REPO, payload: e.message });
       console.log(
         `произошла ошибка при загрузке репозиториев пользователя: ${e.message}`
       );

@@ -7,14 +7,14 @@ import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useAction } from '../../hooks/useAction';
 
 const SearchUsers: FC = () => {
-  const { users } = useTypeSelector((state) => state.user);
-  const { searchUsers } = useAction();
-  const { loading } = useTypeSelector((state) => state.user);
+  const { users } = useTypeSelector((state) => state.users);
+  const { getUsers } = useAction();
+  const { loading } = useTypeSelector((state) => state.users);
 
   const handleSearch = debounce(useCallback((e: ChangeEvent<HTMLInputElement>): void => {
     const { target: { value } } = e;
-    if (value) {
-      searchUsers(value);
+    if (value.length > 2) {
+      getUsers(value);
     }
   }, []), 700);
 
